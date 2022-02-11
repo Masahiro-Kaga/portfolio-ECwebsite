@@ -6,9 +6,13 @@ https://maku77.github.io/nodejs/env/dotenv.html
 
 003 Set up based pages and components and install bootstrap router
 
+004 Optimize linking pages and add Error and logoutpage.
+
 
 
 全てのページの表示
+フェッチ
+    レジスターしてモンゴに登録されるかどうかチェック。
 サーバルータ追加
 ベースフェッチ完成
 

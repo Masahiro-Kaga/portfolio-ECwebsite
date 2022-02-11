@@ -11,13 +11,14 @@ const AppNavBar = () => {
           <Navbar.Collapse id="basic-nav-bar">
             <Nav className="ml-auto">
               <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/Login">Login</Nav.Link>
-              <Nav.Link href="/Register">Register</Nav.Link>
-              <Nav.Link href="/AddProduct">Add Product</Nav.Link>
-              <Nav.Link href="/EnableProduct">Enable Product</Nav.Link>
-              <Nav.Link href="/DisableProduct">Disable Product</Nav.Link>
-              <Nav.Link href="/ViewActiveProducts">View Active Products</Nav.Link>
-              <Nav.Link href="/AdminDashboard">Admin Dashboard</Nav.Link>
+              <Nav.Link href="/login">Login</Nav.Link>
+              <Nav.Link href="/register">Register</Nav.Link>
+              <Nav.Link href="/addProduct">Add Product</Nav.Link>
+              <Nav.Link href="/enableProduct">Enable Product</Nav.Link>
+              <Nav.Link href="/disableProduct">Disable Product</Nav.Link>
+              <Nav.Link href="/viewActiveProducts">View Active Products</Nav.Link>
+              <Nav.Link href="/adminDashboard">Admin Dashboard</Nav.Link>
+              <Nav.Link href="/logout">logout</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
