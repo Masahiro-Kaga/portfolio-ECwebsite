@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import Swal from "sweetalert2";
 
 const Register = () => {
   const [firstName, setFirstName] = useState("");
@@ -17,20 +18,35 @@ const Register = () => {
     // console.log(firstName,lastName,email,password,confirmPassword,mobileNo);
 
     fetch("http://localhost:4001/users/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          firstName,
-          lastName,
-          email,
-          mobileNo,
-          password,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data)=> console.log(data));
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        firstName,
+        lastName,
+        email,
+        mobileNo,
+        password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data._id) {
+          Swal.fire({
+            icon: "success",
+            title: "Registration Sucecss!",
+            text: "Thank you for registration.",
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Registration Failed",
+            text: "Please try to register.",
+          });
+        }
+      });
   };
 
   return (

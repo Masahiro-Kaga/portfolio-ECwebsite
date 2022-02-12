@@ -8,11 +8,18 @@ https://maku77.github.io/nodejs/env/dotenv.html
 
 004 Optimize linking pages and add Error and logoutpage.
 
+005 First fetch to test connection between Front and Back on Register page.
+
+006 Give token to user when user login, and make modal success/fail on register and login.
 
 
 全てのページの表示
 フェッチ
     レジスターしてモンゴに登録されるかどうかチェック。
+    Authentication
+        localStorageにtokenを格納
+        token保持者のみfetch可能なコントローラー
+    IsAdmin判定
 サーバルータ追加
 ベースフェッチ完成
 
