@@ -15,6 +15,7 @@ import ErrorPage from "./pages/ErrorPage";
 import { useState } from "react";
 import { UserProvider } from "./userContext";
 import { useEffect } from "react";
+import UpdateProduct from "./pages/UpdateProduct";
 
 function App() {
   const [user, setUser] = useState({
@@ -45,6 +46,7 @@ function App() {
           <Route path="/Login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route path="/addProduct" element={<AddProduct />}></Route>
+          <Route path="/updateProduct/:productId" element={<UpdateProduct />}></Route>
           <Route path="/enableProduct" element={<EnableProduct />}></Route>
           <Route path="/disableProduct" element={<DisableProduct />}></Route>
           <Route

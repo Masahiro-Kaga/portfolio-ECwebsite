@@ -20,6 +20,8 @@ https://maku77.github.io/nodejs/env/dotenv.html
 
 010 Toggle active/archive on status of products. 
 
+011 Add update function of product.
+
 
 全てのページの表示
 フェッチ
@@ -38,13 +40,3 @@ https://maku77.github.io/nodejs/env/dotenv.html
         const dotenv = require("dotenv");
         dotenv.config();
         const port = process.env.PORT || 4001;
-
-<Link
-                  to={`/updateProduct/${product._id}`}
-                  className="btn btn-primary mx-2"
-                >
-                  Update
-                </Link>
-
-                          <Route path="/updateProduct/:productId" element={<UpdateProduct />}></Route>
-              <Nav.Link href="/updateProduct">Update Product</Nav.Link>

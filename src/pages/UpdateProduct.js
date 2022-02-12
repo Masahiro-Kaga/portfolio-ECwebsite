@@ -1,24 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useContext } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import { Navigate } from "react-router";
+import { useParams } from "react-router-dom";
 import UserContext from "../userContext";
 
 const UpdateProduct = () => {
   const [productName, setProductName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
+  const [selectedProduct, setSelectedProduct] = useState("");
 
   const { user } = useContext(UserContext);
+
+  const { productId } = useParams();
+
+  //   console.log(productId);
 
   // console.log(localStorage.getItem("token"))
 
   const updateProduct = (e) => {
     e.preventDefault();
-    fetch("http://localhost:4001/products/updateProductInfo/:productId", {
-      method: "POST",
+    fetch(`http://localhost:4001/products/updateProductInfo/${productId}`, {
+      method: "PUT",
       headers: {
-        "Content-type": "application/json",
+        "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       body: JSON.stringify({
@@ -28,14 +34,58 @@ const UpdateProduct = () => {
       }),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        setSelectedProduct(
+          <Row className="my-3">
+            <Col xs={12} md={4}>
+              <Card className="p-3 cardHighlight">
+                <Card.Body>
+                  <Card.Title>
+                    <h2>Product Name : {data.name}</h2>
+                    <Card.Text>Description : {data.description}</Card.Text>
+                    <Card.Text>Price : {data.price}</Card.Text>
+                  </Card.Title>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        );
+      });
   };
 
-  return user.id ? (
+  useEffect(() => {
+    fetch(`http://localhost:4001/products/retrieveSingleProduct/${productId}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setSelectedProduct(
+          <Row className="my-3">
+            <Col xs={12} md={4}>
+              <Card className="p-3 cardHighlight">
+                <Card.Body>
+                  <Card.Title>
+                    <h2>Product Name : {data.name}</h2>
+                    <Card.Text>Description : {data.description}</Card.Text>
+                    <Card.Text>Price : {data.price}</Card.Text>
+                  </Card.Title>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        );
+      });
+    console.log(selectedProduct);
+  }, []);
+
+  return (
     <>
       <h1 className="my-5 text-center">Update Product</h1>
       <Form onSubmit={(e) => updateProduct(e)}>
         <Form.Group className="m-3">
+          {selectedProduct}
           <Form.Label>Product Name:</Form.Label>
           <Form.Control
             type="text"
@@ -64,9 +114,7 @@ const UpdateProduct = () => {
         </Button>
       </Form>
     </>
-  ) : (
-    <Navigate to="/login" replace={true}></Navigate>
   );
 };
 
-export default UpdateProduct
+export default UpdateProduct;

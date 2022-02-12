@@ -14,6 +14,7 @@ const AppNavBar = () => {
               <Nav.Link href="/login">Login</Nav.Link>
               <Nav.Link href="/register">Register</Nav.Link>
               <Nav.Link href="/addProduct">Add Product</Nav.Link>
+              <Nav.Link href="/updateProduct">Update Product</Nav.Link>
               <Nav.Link href="/enableProduct">Enable Product</Nav.Link>
               <Nav.Link href="/disableProduct">Disable Product</Nav.Link>
               <Nav.Link href="/viewActiveProducts">View Active Products</Nav.Link>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const AdminDashboard = () => {
   const [allProducts, setAllProducts] = useState([]);
@@ -8,7 +9,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     fetch("http://localhost:4001/products/getAllProducts", {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Authorization": `Bearer ${localStorage.getItem("token")}`,
       },
     })
       .then((res) => res.json())
@@ -38,13 +39,18 @@ const AdminDashboard = () => {
                     Active
                   </Button>
                 )}
-                
+                <Link
+                  to={`/updateProduct/${product._id}`}
+                  className="btn btn-primary mx-2"
+                >
+                  Update
+                </Link>
               </td>
             </tr>
           ))
         );
       });
-    console.log(changedStatusItem);
+    // console.log(changedStatusItem);
   }, [changedStatusItem]);
 
   const changeStatusHandler = (activateStatus) => {
