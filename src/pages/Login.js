@@ -1,10 +1,15 @@
 import React, { useState } from "react";
+import { useContext } from "react";
 import { Button, Form } from "react-bootstrap";
 import Swal from "sweetalert2";
+import UserContext from "../userContext";
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  
+  const {setUser} = useContext(UserContext);
 
   const loginUser = (e) => {
     e.preventDefault();
@@ -20,7 +25,7 @@ const Login = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         localStorage.setItem('token',data.accessToken);
         if (data.accessToken) {
           Swal.fire({
@@ -28,6 +33,17 @@ const Login = () => {
             title: "Registration Sucecss!",
             text: "Thank you for registration.",
           });
+
+          fetch('http://localhost:4001/users/getUserDetails',{
+            headers : {
+              "Authorization" : `Bearer ${data.accessToken}`
+            }
+          }).then(res => res.json()).then(data => {
+            setUser({
+              id:data._id,
+              isAdmin:data.isAdmin
+            })
+          })
         } else {
           Swal.fire({
             icon: "error",

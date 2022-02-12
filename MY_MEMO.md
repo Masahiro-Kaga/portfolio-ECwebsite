@@ -12,6 +12,10 @@ https://maku77.github.io/nodejs/env/dotenv.html
 
 006 Give token to user when user login, and make modal success/fail on register and login.
 
+007 WIth Context, manage state of login user information and share it to all pages/components.
+
+008 
+
 
 全てのページの表示
 フェッチ

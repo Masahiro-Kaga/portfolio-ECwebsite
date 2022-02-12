@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import Swal from "sweetalert2";
+import { useContext } from "react";
+import UserContext from "../userContext";
+
 
 const Register = () => {
   const [firstName, setFirstName] = useState("");
@@ -9,6 +12,9 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [mobileNo, setMobileNo] = useState("");
+
+  const context = useContext(UserContext)
+  console.log(context)
 
   // console.log(firstName,lastName,email,password,confirmPassword,mobileNo);
 
