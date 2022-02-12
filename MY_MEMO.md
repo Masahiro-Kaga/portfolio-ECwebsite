@@ -14,7 +14,7 @@ https://maku77.github.io/nodejs/env/dotenv.html
 
 007 WIth Context, manage state of login user information and share it to all pages/components.
 
-008 
+008 If user is not loged in ,Redirect Add Product to Login page.
 
 
 全てのページの表示

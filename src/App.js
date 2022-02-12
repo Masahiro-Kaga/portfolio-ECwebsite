@@ -21,7 +21,6 @@ function App() {
     id: null,
     isAdmin: null,
   });
-  console.log(user)
   useEffect(() => {
     fetch("http://localhost:4001/users/getUserDetails", {
       headers: {
