@@ -17,4 +17,9 @@ https://maku77.github.io/nodejs/env/dotenv.html
 ベースフェッチ完成
 
 エラー
-bootstrapのimport 'bootstrap/dist/css/bootstrap.min.css';忘れ
+    bootstrapのimport 'bootstrap/dist/css/bootstrap.min.css';忘れ   
+    ボタンをformの中に入れていないとonsubmitが効かない。
+    fetchできない→次の順番をしっかり守る。逆だった。
+        const dotenv = require("dotenv");
+        dotenv.config();
+        const port = process.env.PORT || 4001;
