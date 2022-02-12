@@ -16,6 +16,8 @@ https://maku77.github.io/nodejs/env/dotenv.html
 
 008 If user is not loged in ,Redirect Add Product to Login page.
 
+009 If user is logged in , Redirect to Home from Register and Login page.
+
 
 全てのページの表示
 フェッチ

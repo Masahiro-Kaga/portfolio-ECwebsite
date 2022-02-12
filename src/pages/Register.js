@@ -3,7 +3,7 @@ import { Button, Form } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { useContext } from "react";
 import UserContext from "../userContext";
-
+import { Navigate } from "react-router-dom";
 
 const Register = () => {
   const [firstName, setFirstName] = useState("");
@@ -13,8 +13,10 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [mobileNo, setMobileNo] = useState("");
 
-  const context = useContext(UserContext)
-  console.log(context)
+  const { user } = useContext(UserContext);
+
+  const context = useContext(UserContext);
+  console.log(context);
 
   // console.log(firstName,lastName,email,password,confirmPassword,mobileNo);
 
@@ -55,7 +57,9 @@ const Register = () => {
       });
   };
 
-  return (
+  return user.id ? (
+    <Navigate to="/" replace={true}></Navigate>
+  ) : (
     <>
       <h1 className="my-5 text-center">Register</h1>
       <Form onSubmit={(e) => registerUser(e)}>
