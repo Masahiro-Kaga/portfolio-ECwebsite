@@ -22,6 +22,8 @@ https://maku77.github.io/nodejs/env/dotenv.html
 
 011 Add update function of product.
 
+012 Add cart and order page/function. 
+
 
 全てのページの表示
 フェッチ

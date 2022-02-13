@@ -16,12 +16,14 @@ import { useState } from "react";
 import { UserProvider } from "./userContext";
 import { useEffect } from "react";
 import UpdateProduct from "./pages/UpdateProduct";
+import Order from "./pages/Order";
 
 function App() {
   const [user, setUser] = useState({
     id: null,
     isAdmin: null,
   });
+  const [ order , setOrder ] = useState([]);
   useEffect(() => {
     fetch("http://localhost:4001/users/getUserDetails", {
       headers: {
@@ -38,7 +40,7 @@ function App() {
   }, []);
 
   return (
-    <UserProvider value={{ user: user, setUser: setUser }}>
+    <UserProvider value={{ user: user, setUser: setUser ,order:order , setOrder:setOrder }}>
       <Router>
         <AppNavBar></AppNavBar>
         <Routes>
@@ -53,6 +55,8 @@ function App() {
             path="/viewActiveProducts"
             element={<ViewActiveProducts />}
           ></Route>
+
+          <Route path="/order" element={<Order />}></Route>
           <Route path="/adminDashboard" element={<AdminDashboard />}></Route>
           <Route path="/logout" element={<Logout />}></Route>
           <Route path="/*" element={<ErrorPage />}></Route>
