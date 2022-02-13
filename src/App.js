@@ -23,8 +23,10 @@ function App() {
     id: null,
     isAdmin: null,
   });
-  const [ order , setOrder ] = useState([]);
+  const [order, setOrder] = useState([]);
+  const [products, setProducts] = useState([]);
   useEffect(() => {
+
     fetch("http://localhost:4001/users/getUserDetails", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -37,10 +39,20 @@ function App() {
           isAdmin: data.isAdmin,
         });
       });
+
   }, []);
 
   return (
-    <UserProvider value={{ user: user, setUser: setUser ,order:order , setOrder:setOrder }}>
+    <UserProvider
+      value={{
+        user: user,
+        setUser: setUser,
+        order: order,
+        setOrder: setOrder,
+        products: products,
+        setProducts: setProducts,
+      }}
+    >
       <Router>
         <AppNavBar></AppNavBar>
         <Routes>
@@ -48,7 +60,10 @@ function App() {
           <Route path="/Login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route path="/addProduct" element={<AddProduct />}></Route>
-          <Route path="/updateProduct/:productId" element={<UpdateProduct />}></Route>
+          <Route
+            path="/updateProduct/:productId"
+            element={<UpdateProduct />}
+          ></Route>
           <Route path="/enableProduct" element={<EnableProduct />}></Route>
           <Route path="/disableProduct" element={<DisableProduct />}></Route>
           <Route

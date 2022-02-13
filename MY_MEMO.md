@@ -24,6 +24,8 @@ https://maku77.github.io/nodejs/env/dotenv.html
 
 012 Add cart and order page/function. 
 
+013 Modified Admin Dashboard and add showing all order. And show one promo item on Home page. 
+
 
 全てのページの表示
 フェッチ
@@ -42,3 +44,25 @@ https://maku77.github.io/nodejs/env/dotenv.html
         const dotenv = require("dotenv");
         dotenv.config();
         const port = process.env.PORT || 4001;
+
+ {products.find(item => item._id === product.id)
+                    ? ""
+                    : products.find(item => item._id === product.id).name
+                    }
+
+
+let randomProductIndex = Math.floor(Math.random() * activeProducts.length)
+console.log(activeProducts[randomProductIndex].name)
+
+
+
+            <h2>Product Name : {activeProducts[0].name}</h2>
+            <Card.Text>Description : {activeProducts[0].description}</Card.Text>
+            <Card.Text>Price : {activeProducts[0].price}</Card.Text>
+
+
+useStateでロード時に初期値を入れてしまう方法。
+初期ロード中にundefinedを返す場合はレンダリングしないように条件分岐する方法。
+
+
+
