@@ -1,17 +1,11 @@
 import React, { useState } from "react";
-import { useContext } from "react";
 import { Button, Form } from "react-bootstrap";
-import { Navigate } from "react-router";
-import UserContext from "../userContext";
+import Swal from "sweetalert2";
 
 const AddProduct = () => {
   const [productName, setProductName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-
-  const { user } = useContext(UserContext);
-
-  // console.log(localStorage.getItem("token"))
 
   const addProduct = (e) => {
     e.preventDefault();
@@ -28,10 +22,25 @@ const AddProduct = () => {
       }),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        console.log(data);
+        if (data._id) {
+          Swal.fire({
+            icon: "success",
+            title: "Add product Success!",
+            text: "Check the renewed product list.",
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Add product Failed",
+            text: "Please try to Add products.",
+          });
+        }
+      });
   };
 
-  return user.id ? (
+  return (
     <>
       <h1 className="my-5 text-center">Add Product</h1>
       <Form onSubmit={(e) => addProduct(e)}>
@@ -64,9 +73,7 @@ const AddProduct = () => {
         </Button>
       </Form>
     </>
-  ) : (
-    <Navigate to="/login" replace={true}></Navigate>
-  );
+  ) 
 };
 
 export default AddProduct;

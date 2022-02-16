@@ -18,15 +18,15 @@ const StatusChanger = () => {
         setAllProducts(
           data.map((product) => (
             <tr key={product._id}>
-              <td>{product._id}</td>
+              <td >{product._id}</td>
               <td>{product.name}</td>
               <td>{product.price}</td>
-              <td>
+              <td className="text-center">
                 {product.isActive ? (
                   <Button
                     onClick={() => changeStatusHandler(product)}
                     variant="danger"
-                    className="mx-2"
+                    className="my-2 mx-2 m-auto"
                   >
                     Archive
                   </Button>
@@ -34,9 +34,9 @@ const StatusChanger = () => {
                   <Button
                     onClick={() => changeStatusHandler(product)}
                     variant="success"
-                    className="mx-2"
+                    className="my-2 mx-2 m-auto"
                   >
-                    Active
+                    Activate
                   </Button>
                 )}
                 <Link
@@ -69,8 +69,7 @@ const StatusChanger = () => {
 
   return (
     <>
-      <h1 className="my-5 text-center">Admin Dashboard</h1>
-      <Table striped bordered hover>
+      <Table striped bordered hover responsive>
         <thead>
           <tr>
             <th>ID</th>

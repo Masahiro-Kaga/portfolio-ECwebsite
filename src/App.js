@@ -1,22 +1,19 @@
+import { useEffect, useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
-import { BrowserRouter as Router } from "react-router-dom";
-import { Routes, Route } from "react-router-dom";
+import AddProduct from "./components/AddProduct";
 import AppNavBar from "./components/AppNavBar";
+import UpdateProduct from "./components/UpdateProduct";
+import AdminDashboard from "./pages/AdminDashboard";
+import ErrorPage from "./pages/ErrorPage";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Register from "./pages/Register";
-import AddProduct from "./pages/AddProduct";
-import EnableProduct from "./pages/EnableProduct";
-import DisableProduct from "./pages/DisableProduct";
-import ViewActiveProducts from "./pages/ViewActiveProducts";
-import AdminDashboard from "./pages/AdminDashboard";
-import Logout from "./pages/Logout";
-import ErrorPage from "./pages/ErrorPage";
-import { useState } from "react";
-import { UserProvider } from "./userContext";
-import { useEffect } from "react";
-import UpdateProduct from "./pages/UpdateProduct";
 import Order from "./pages/Order";
+import Register from "./pages/Register";
+import SuccessOrder from "./pages/SuccessOrder";
+import TestPage from "./pages/TestPage";
+import ViewActiveProducts from "./pages/ViewActiveProducts";
+import { UserProvider } from "./userContext";
 
 function App() {
   const [user, setUser] = useState({
@@ -24,7 +21,9 @@ function App() {
     isAdmin: null,
   });
   const [order, setOrder] = useState([]);
-  const [products, setProducts] = useState([]);
+  const unsetUser = () =>{
+    localStorage.clear();
+  }
   useEffect(() => {
 
     fetch("http://localhost:4001/users/getUserDetails", {
@@ -49,8 +48,7 @@ function App() {
         setUser: setUser,
         order: order,
         setOrder: setOrder,
-        products: products,
-        setProducts: setProducts,
+        unsetUser:unsetUser
       }}
     >
       <Router>
@@ -64,8 +62,7 @@ function App() {
             path="/updateProduct/:productId"
             element={<UpdateProduct />}
           ></Route>
-          <Route path="/enableProduct" element={<EnableProduct />}></Route>
-          <Route path="/disableProduct" element={<DisableProduct />}></Route>
+          
           <Route
             path="/viewActiveProducts"
             element={<ViewActiveProducts />}
@@ -73,7 +70,10 @@ function App() {
 
           <Route path="/order" element={<Order />}></Route>
           <Route path="/adminDashboard" element={<AdminDashboard />}></Route>
-          <Route path="/logout" element={<Logout />}></Route>
+          <Route path="/successOrder" element={<SuccessOrder />}></Route>
+
+          <Route path="/testpage" element={<TestPage />}></Route>
+
           <Route path="/*" element={<ErrorPage />}></Route>
         </Routes>
       </Router>
@@ -82,4 +82,3 @@ function App() {
 }
 
 export default App;
-  

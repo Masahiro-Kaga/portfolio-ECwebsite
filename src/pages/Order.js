@@ -1,56 +1,93 @@
-import React, { useEffect, useState } from "react";
-import { useContext } from "react";
-import { Button } from "react-bootstrap";
+import React, { useContext, useEffect, useState } from "react";
+import { Button, Table } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import UserContext from "../userContext";
 
 const Order = () => {
   const { order } = useContext(UserContext);
-  const [totalQuantity, setTotalQuantity] = useState(0);
-  const [totalBill, setTotalBill] = useState(0);
-
-  //   console.log(order);
+  const [orderedList, setOrderedList] = useState({
+    totalAmount:0,
+    products:[]
+  });
+  let navigate = useNavigate()
 
   useEffect(() => {
-    let tempTotalQuantity = 0;
-    let tempTotalBill = 0;
-    order.forEach((orderedProduct) => {
-      tempTotalQuantity += orderedProduct.quantity;
-      tempTotalBill += orderedProduct.productTotalBill;
-    });
-    setTotalQuantity(tempTotalQuantity);
-    setTotalBill(tempTotalBill);
-    console.log(order);
-  }, []);
+    let totalAmount = 0;
+    let orderedItem = [];
+    order.forEach((item)=>{
+      if(item.quantity !== 0){
+        totalAmount += item.totalBill;
+        orderedItem.push({
+          productId:item.id,
+          quantity:item.quantity
+        })
+      }
+    })
+    setOrderedList({
+      totalAmount,
+      products:orderedItem
+    })
+  }, [order]);
+
+  // console.log(orderedList);
 
   const completeOrder = () => {
-      console.log({
-        totalAmount: totalBill,
-        products: order
-      })
     fetch("http://localhost:4001/orders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       body: JSON.stringify({
-        totalAmount: totalBill,
-        products:order
+        totalAmount:orderedList.totalAmount,
+        products: orderedList.products
       }),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        console.log(data)
+      })
+      navigate('/successOrder')
   };
-
-  //   console.log(totalQuantity);
-  //   console.log(totalBill);
 
   return (
     <>
-    <h1>Warning: still working on because it comes error if user is admin now.</h1>
-      <p>Total Quantity: {totalQuantity}</p>
-      <p>Total Amount: {totalBill}</p>
-      <Button onClick={completeOrder}>Order</Button>
+      <h1 className="text-center my-5">Order</h1>
+      <Table striped bordered hover responsive>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Qty</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {order.map(
+            (item) =>
+              item.quantity !== 0 && (
+                <tr key={item.id}>
+                  <td>{item.name}</td>
+                  <td>{item.price.toLocaleString('ja-JP', {style:'currency', currency: 'JPY'})}</td>
+                  <td>{item.quantity}</td>
+                  <td>{item.totalBill.toLocaleString('ja-JP', {style:'currency', currency: 'JPY'})}</td>
+                </tr>
+              )
+          )}
+
+          <tr>
+            <td colSpan={3}>Amount</td>
+            <td>{orderedList.totalAmount.toLocaleString('ja-JP', {style:'currency', currency: 'JPY'})}</td>
+          </tr>
+          <tr>
+            <td colSpan={4}>
+              <Button onClick={completeOrder} style={{ width: "100%" }}>
+                  Order
+              </Button>
+            </td>
+          </tr>
+        </tbody>
+      </Table>
     </>
   );
 };

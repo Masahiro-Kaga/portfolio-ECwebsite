@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { useContext } from "react";
@@ -12,6 +12,8 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [mobileNo, setMobileNo] = useState("");
+
+  const [isActive, setIsActive] = useState(false);
 
   const { user } = useContext(UserContext);
 
@@ -57,13 +59,29 @@ const Register = () => {
       });
   };
 
+  useEffect(() => {
+    if (
+      firstName !== "" &&
+      lastName !== "" &&
+      email !== "" &&
+      mobileNo.length === 11 &&
+      password !== "" &&
+      confirmPassword !== "" &&
+      password === confirmPassword
+    ) {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
+  }, [firstName, lastName, email, mobileNo, password, confirmPassword]);
+
   return user.id ? (
     <Navigate to="/" replace={true}></Navigate>
   ) : (
     <>
       <h1 className="my-5 text-center">Register</h1>
-      <Form onSubmit={(e) => registerUser(e)}>
-        <Form.Group className="m-3">
+      <Form onSubmit={(e) => registerUser(e)} className="m-3">
+        <Form.Group>
           <Form.Label>First Name:</Form.Label>
           <Form.Control
             type="text"
@@ -71,7 +89,7 @@ const Register = () => {
             onChange={(e) => setFirstName(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Form.Group className="m-3">
+        <Form.Group>
           <Form.Label>Last Name:</Form.Label>
           <Form.Control
             type="text"
@@ -79,7 +97,7 @@ const Register = () => {
             onChange={(e) => setLastName(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Form.Group className="m-3">
+        <Form.Group>
           <Form.Label>Email:</Form.Label>
           <Form.Control
             type="email"
@@ -87,7 +105,7 @@ const Register = () => {
             onChange={(e) => setEmail(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Form.Group className="m-3">
+        <Form.Group>
           <Form.Label>Password:</Form.Label>
           <Form.Control
             type="text"
@@ -95,7 +113,7 @@ const Register = () => {
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Form.Group className="m-3">
+        <Form.Group>
           <Form.Label>Confirm Password:</Form.Label>
           <Form.Control
             type="text"
@@ -103,7 +121,7 @@ const Register = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Form.Group className="m-3">
+        <Form.Group>
           <Form.Label>MobileNo:</Form.Label>
           <Form.Control
             type="number"
@@ -111,9 +129,15 @@ const Register = () => {
             onChange={(e) => setMobileNo(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Button type="submit" className="m-3">
-          Register
-        </Button>
+        {isActive ? (
+          <Button variant="primary" type="submit" className="my-5">
+            Register
+          </Button>
+        ) : (
+          <Button variant="primary" disabled className="my-5">
+            Register
+          </Button>
+        )}
       </Form>
     </>
   );

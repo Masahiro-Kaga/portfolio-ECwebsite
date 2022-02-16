@@ -1,85 +1,120 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import UserContext from "../userContext";
 
 const ViewActiveProducts = () => {
-  const [products, setProducts] = useState([]);
-  const { order, setOrder } = useContext(UserContext);
+  const { order, setOrder , user } = useContext(UserContext);
 
   useEffect(() => {
     fetch("http://localhost:4001/products/retrieveAllActive")
       .then((res) => res.json())
-      .then((data) => setProducts(data));
-  }, []);
+      .then((data) => {
+        let list = [];
+        data.map((item) =>
+          list.push({
+            id: item._id,
+            name: item.name,
+            price: item.price,
+            description:item.description,
+            quantity: 0,
+            totalBill: 0,
+          })
+        );
+        setOrder(list);
+      });
+  }, [setOrder]);
 
-  // console.log(products);
+  // console.log(orderedList);
 
   const addOrder = (product) => {
-    const currentOrder = [ ...order ]
-    const existingItem = currentOrder.find(order => order.productId === product._id);
-    if(!existingItem){
-      currentOrder.push({
-        productId:product._id,
-        quantity:1,
-        productTotalBill:product.price
-      });
-    }else{
-      existingItem.quantity++;
-      existingItem.productTotalBill += product.price
-    }
-    setOrder(currentOrder);
-    // console.log(existingItem)
+    let existingItem = order.find((order) => order.id === product.id);
+    existingItem.quantity++;
+    existingItem.totalBill = existingItem.price * existingItem.quantity;
+    let tempList = [];
+    order.forEach((item) => {
+      if (item.id === existingItem.id) {
+        tempList.push(existingItem);
+      } else {
+        tempList.push(item);
+      }
+    });
+    setOrder(tempList);
   };
-  
+
   // console.log(order)
   const removeOrder = (product) => {
-    
-    let currentOrder = [ ...order ];
-    let existingItem = currentOrder.find(order => order.productId === product._id);
-    if(!existingItem){
-      return;
-    }else if(existingItem.quantity === 1){
-      currentOrder = currentOrder.filter(order => order.productId !== product._id)
-    }else{
-      existingItem.quantity--;
-      existingItem.productTotalBill -= product.price
-    }
-    setOrder(currentOrder);
-  }
+    let existingItem = order.find((order) => order.id === product.id);
+    existingItem.quantity--;
+    existingItem.totalBill = existingItem.price * existingItem.quantity;
+    let tempList = [];
+    order.forEach((item) => {
+      if (item.id === existingItem.id) {
+        tempList.push(existingItem);
+      } else {
+        tempList.push(item);
+      }
+    });
+    setOrder(tempList);
+  };
 
-  console.log(order)
+  console.log(order);
 
   return (
     <>
       <h1 className="my-5 text-center">Products</h1>
-      <Row>
-        {products.map((product) => (
-          <Col key={product._id}>
+      {user.id 
+      ?
+      <div className="text-center my-2">
+        <Link to={`/order`} className="btn btn-primary mx-2">
+          Check Out
+        </Link>
+      </div>
+      :
+      <div className="text-center my-2">
+        <Link to={`/login`} className="btn btn-primary mx-2">
+          Login
+        </Link>
+      </div>
+    }
+      <Row className="mx-2">
+        {order.map((product) => (
+          <Col key={product.id} className="my-2" xs={6} lg={3}>
             <Card>
+              <Card.Img
+                src={`https://source.unsplash.com/featured/?${product.name}`}
+                style={{ height: "30vh", objectFit: "cover" }}
+                
+              />
               <Card.Body>
                 <Card.Title>{product.name}</Card.Title>
                 <Card.Subtitle>{product.description}</Card.Subtitle>
-                <Card.Text>{product.price}</Card.Text>
+                <Card.Text>{product.price.toLocaleString('ja-JP', {style:'currency', currency: 'JPY'})}</Card.Text>
                 <Button className="mx-2" onClick={() => addOrder(product)}>
                   +
                 </Button>
-                {product.quantity === 0 
-                ?
-                <Button className="mx-2" disabled>-</Button>
-                
-                :
-                <Button className="mx-2" onClick={() => removeOrder(product)}>-</Button>
-                
-                }
+                {product.quantity === 0 ? (
+                  <Button className="mx-2" disabled>
+                    -
+                  </Button>
+                ) : (
+                  <Button className="mx-2" onClick={() => removeOrder(product)}>
+                    -
+                  </Button>
+                )}
+                <Row className="mt-4">
+                  <Col>
+                    <p>Quantity:{product.quantity}</p>
+                  </Col>
+                  <Col>
+                    <p>Total:{product.totalBill.toLocaleString('ja-JP', {style:'currency', currency: 'JPY'})}</p>
+                  </Col>
+                </Row>
               </Card.Body>
             </Card>
           </Col>
         ))}
       </Row>
-      <Link to={`/order`} className="btn btn-primary mx-2">
-        Check Out
-      </Link>
     </>
   );
 };

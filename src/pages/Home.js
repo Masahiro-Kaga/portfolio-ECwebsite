@@ -1,5 +1,5 @@
-import React, { Fragment, useEffect, useState } from "react";
-import { Card, Col, Row } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Card, Col, Image, Row } from "react-bootstrap";
 
 const Home = () => {
   const [activeProducts, setActiveProducts] = useState([]);
@@ -23,11 +23,11 @@ const Home = () => {
 
   return (
     <>
-      <h1>Home</h1>
-      <h2>Promo Item!!</h2>
-      <Row className="my-3">
-        <Col xs={12} md={4}>
-          <Card className="p-3 cardHighlight">
+      <h1 className="my-5 text-center">Home</h1>
+      <h2 className="my-5 text-center">Today's Deal!</h2>
+      <Card className="p-3 m-3 cardHighlight">
+        <Row>
+          <Col xs={6}>
             {activeProducts.length !== 0 && (
               <Card.Body>
                 <h2>
@@ -41,9 +41,19 @@ const Home = () => {
                 </Card.Text>
               </Card.Body>
             )}
-          </Card>
-        </Col>
-      </Row>
+          </Col>
+          <Col xs={6}>
+            <figure>
+              {activeProducts.length !== 0 && (
+                <Image
+                  src={`https://source.unsplash.com/featured/?${activeProducts[randomProductIndex].name}`}
+                  width="100%"
+                ></Image>
+              )}
+            </figure>
+          </Col>
+        </Row>
+      </Card>
     </>
   );
 };

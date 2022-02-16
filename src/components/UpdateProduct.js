@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useContext } from "react";
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
-import { Navigate } from "react-router";
 import { useParams } from "react-router-dom";
-import UserContext from "../userContext";
+import Swal from "sweetalert2";
 
 const UpdateProduct = () => {
   const [productName, setProductName] = useState("");
@@ -11,13 +9,9 @@ const UpdateProduct = () => {
   const [price, setPrice] = useState("");
   const [selectedProduct, setSelectedProduct] = useState("");
 
-  const { user } = useContext(UserContext);
-
   const { productId } = useParams();
 
-  //   console.log(productId);
-
-  // console.log(localStorage.getItem("token"))
+  // console.log(productId);
 
   const updateProduct = (e) => {
     e.preventDefault();
@@ -61,6 +55,20 @@ const UpdateProduct = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
+        if (data._id) {
+          Swal.fire({
+            icon: "success",
+            title: "Update Sucecss!",
+            text: "Check new Status.",
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Update Failed",
+            text: "Please try to update.",
+          });
+        }
         setSelectedProduct(
           <Row className="my-3">
             <Col xs={12} md={4}>
@@ -69,7 +77,7 @@ const UpdateProduct = () => {
                   <Card.Title>
                     <h2>Product Name : {data.name}</h2>
                     <Card.Text>Description : {data.description}</Card.Text>
-                    <Card.Text>Price : {data.price}</Card.Text>
+                    <Card.Text>Price : {data.price.toLocaleString('ja-JP', {style:'currency', currency: 'JPY'})}</Card.Text>
                   </Card.Title>
                 </Card.Body>
               </Card>
@@ -77,12 +85,11 @@ const UpdateProduct = () => {
           </Row>
         );
       });
-    console.log(selectedProduct);
-  }, []);
+    // console.log(selectedProduct);
+  }, [productId]);
 
   return (
     <>
-      <h1 className="my-5 text-center">Update Product</h1>
       <Form onSubmit={(e) => updateProduct(e)}>
         <Form.Group className="m-3">
           {selectedProduct}

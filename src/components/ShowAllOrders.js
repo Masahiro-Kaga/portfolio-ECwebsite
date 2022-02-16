@@ -1,22 +1,10 @@
-import React, { useState } from "react";
-import { useContext } from "react";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
-import UserContext from "../userContext";
 
 const ShowAllOrders = () => {
   const [totalOrders,setTotalOrders] = useState([]);
-  const { products, setProducts } = useContext(UserContext);
   useEffect(() => {
-    fetch("http://localhost:4001/products/getAllProducts", {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setProducts(data);
-      });
+    
 
     fetch("http://localhost:4001/orders/allOrders", {
       headers: {
@@ -29,21 +17,20 @@ const ShowAllOrders = () => {
 
   return (
     <>
-      <h1 className="my-5 text-center">Admin Dashboard</h1>
-      <Table striped bordered hover>
+      <Table striped bordered hover responsive>
         <thead>
           <tr>
             <th>Order ID</th>
             <th>Date</th>
             <th>Total Price</th>
-            <th>Products</th>
+            <th>Product ID</th>
           </tr>
         </thead>
         <tbody>
             {totalOrders.map((order) => (
             <tr key={order._id}>
               <td>{order._id}</td>
-              <td>{order.purchasedOn}</td>
+              <td>{order.purchasedOn.slice(0,10)}</td>
               <td>
                 {order.totalAmount.toLocaleString("en-US", {
                   style: "currency",
