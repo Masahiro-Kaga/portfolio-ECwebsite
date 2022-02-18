@@ -15,7 +15,7 @@ const UpdateProduct = () => {
 
   const updateProduct = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:4001/products/updateProductInfo/${productId}`, {
+    fetch(`https://shielded-forest-80023.herokuapp.com/products/updateProductInfo/${productId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -48,7 +48,7 @@ const UpdateProduct = () => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:4001/products/retrieveSingleProduct/${productId}`, {
+    fetch(`https://shielded-forest-80023.herokuapp.com/products/retrieveSingleProduct/${productId}`, {
       headers: {
         "Content-Type": "application/json",
       },

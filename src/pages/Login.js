@@ -14,7 +14,7 @@ const Login = () => {
   const loginUser = (e) => {
     e.preventDefault();
     // console.log(email,password)
-    fetch("http://localhost:4001/users/login", {
+    fetch("https://shielded-forest-80023.herokuapp.com/users/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,7 +35,7 @@ const Login = () => {
             text: "Thank you for registration.",
           });
 
-          fetch("http://localhost:4001/users/getUserDetails", {
+          fetch("https://shielded-forest-80023.herokuapp.com/users/getUserDetails", {
             headers: {
               Authorization: `Bearer ${data.accessToken}`,
             },

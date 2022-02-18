@@ -32,7 +32,7 @@ const Order = () => {
   // console.log(orderedList);
 
   const completeOrder = () => {
-    fetch("http://localhost:4001/orders", {
+    fetch("https://shielded-forest-80023.herokuapp.com/orders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

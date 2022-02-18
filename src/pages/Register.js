@@ -27,7 +27,7 @@ const Register = () => {
     // console.log("Success");
     // console.log(firstName,lastName,email,password,confirmPassword,mobileNo);
 
-    fetch("http://localhost:4001/users/", {
+    fetch("https://shielded-forest-80023.herokuapp.com/users/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

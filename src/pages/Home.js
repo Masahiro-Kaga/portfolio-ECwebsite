@@ -5,7 +5,7 @@ const Home = () => {
   const [activeProducts, setActiveProducts] = useState([]);
   const [randomProductIndex, setRandomProductIndex] = useState(0);
   useEffect(() => {
-    fetch("http://localhost:4001/products/retrieveAllActive", {
+    fetch("https://shielded-forest-80023.herokuapp.com/products/retrieveAllActive", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },

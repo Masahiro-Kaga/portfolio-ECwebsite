@@ -4,7 +4,7 @@ import { Table } from "react-bootstrap";
 const ShowAllOrders = () => {
   const [totalOrders, setTotalOrders] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:4001/orders/allOrders", {
+    fetch("https://shielded-forest-80023.herokuapp.com/orders/allOrders", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
