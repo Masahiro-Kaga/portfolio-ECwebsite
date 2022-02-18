@@ -9,7 +9,7 @@ const StatusChanger = () => {
   useEffect(() => {
     fetch("http://localhost:4001/products/getAllProducts", {
       headers: {
-        "Authorization": `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
       .then((res) => res.json())
@@ -18,7 +18,7 @@ const StatusChanger = () => {
         setAllProducts(
           data.map((product) => (
             <tr key={product._id}>
-              <td >{product._id}</td>
+              <td>{product._id}</td>
               <td>{product.name}</td>
               <td>{product.price}</td>
               <td className="text-center">
@@ -69,6 +69,7 @@ const StatusChanger = () => {
 
   return (
     <>
+      <h1 className="my-5 text-center">Activate/Archive/Update Products</h1>
       <Table striped bordered hover responsive>
         <thead>
           <tr>
@@ -78,9 +79,7 @@ const StatusChanger = () => {
             <th>Status</th>
           </tr>
         </thead>
-        <tbody>
-          {allProducts}
-        </tbody>
+        <tbody>{allProducts}</tbody>
       </Table>
     </>
   );

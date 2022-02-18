@@ -56,19 +56,19 @@ const UpdateProduct = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        if (data._id) {
-          Swal.fire({
-            icon: "success",
-            title: "Update Sucecss!",
-            text: "Check new Status.",
-          });
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Update Failed",
-            text: "Please try to update.",
-          });
-        }
+        // if (data._id) {
+        //   Swal.fire({
+        //     icon: "success",
+        //     title: "Update Sucecss!",
+        //     text: "Check new Status.",
+        //   });
+        // } else {
+        //   Swal.fire({
+        //     icon: "error",
+        //     title: "Update Failed",
+        //     text: "Please try to update.",
+        //   });
+        // }
         setSelectedProduct(
           <Row className="my-3">
             <Col xs={12} md={4}>

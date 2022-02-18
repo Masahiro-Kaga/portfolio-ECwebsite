@@ -2,10 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 
 const ShowAllOrders = () => {
-  const [totalOrders,setTotalOrders] = useState([]);
+  const [totalOrders, setTotalOrders] = useState([]);
   useEffect(() => {
-    
-
     fetch("http://localhost:4001/orders/allOrders", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -17,6 +15,7 @@ const ShowAllOrders = () => {
 
   return (
     <>
+      <h1 className="my-5 text-center">View all orders</h1>
       <Table striped bordered hover responsive>
         <thead>
           <tr>
@@ -27,10 +26,10 @@ const ShowAllOrders = () => {
           </tr>
         </thead>
         <tbody>
-            {totalOrders.map((order) => (
+          {totalOrders.map((order) => (
             <tr key={order._id}>
               <td>{order._id}</td>
-              <td>{order.purchasedOn.slice(0,10)}</td>
+              <td>{order.purchasedOn.slice(0, 10)}</td>
               <td>
                 {order.totalAmount.toLocaleString("en-US", {
                   style: "currency",
@@ -39,14 +38,11 @@ const ShowAllOrders = () => {
               </td>
               <td>
                 {order.products.map((product) => (
-                  <p key={product._id}>
-                    {product._id}
-                  </p>
+                  <p key={product._id}>{product._id}</p>
                 ))}
               </td>
             </tr>
           ))}
-
         </tbody>
       </Table>
     </>
