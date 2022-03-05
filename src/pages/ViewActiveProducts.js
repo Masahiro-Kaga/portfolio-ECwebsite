@@ -7,7 +7,7 @@ const ViewActiveProducts = () => {
   const { order, setOrder , user } = useContext(UserContext);
 
   useEffect(() => {
-    fetch("https://shielded-forest-80023.herokuapp.com/products/retrieveAllActive")
+    fetch("http://localhost:4001/products/retrieveAllActive")
       .then((res) => res.json())
       .then((data) => {
         let list = [];

@@ -26,7 +26,7 @@ function App() {
   }
   useEffect(() => {
 
-    fetch("https://shielded-forest-80023.herokuapp.com/users/getUserDetails", {
+    fetch("http://localhost:4001/users/getUserDetails", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },

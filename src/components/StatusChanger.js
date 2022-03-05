@@ -7,7 +7,7 @@ const StatusChanger = () => {
   const [changedStatusItem, setChangedStatusItem] = useState({});
 
   useEffect(() => {
-    fetch("https://shielded-forest-80023.herokuapp.com/products/getAllProducts", {
+    fetch("http://localhost:4001/products/getAllProducts", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -54,7 +54,7 @@ const StatusChanger = () => {
   }, [changedStatusItem]);
 
   const changeStatusHandler = (activateStatus) => {
-    fetch(`https://shielded-forest-80023.herokuapp.com/products/changeStatus/${activateStatus._id}`, {
+    fetch(`http://localhost:4001/products/changeStatus/${activateStatus._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

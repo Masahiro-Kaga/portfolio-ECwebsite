@@ -4,6 +4,8 @@ import Swal from "sweetalert2";
 import { useContext } from "react";
 import UserContext from "../userContext";
 import { Navigate } from "react-router-dom";
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 
 const Register = () => {
   const [firstName, setFirstName] = useState("");
@@ -18,7 +20,7 @@ const Register = () => {
   const { user } = useContext(UserContext);
 
   const context = useContext(UserContext);
-  console.log(context);
+  // console.log(context);
 
   // console.log(firstName,lastName,email,password,confirmPassword,mobileNo);
 
@@ -27,7 +29,7 @@ const Register = () => {
     // console.log("Success");
     // console.log(firstName,lastName,email,password,confirmPassword,mobileNo);
 
-    fetch("https://shielded-forest-80023.herokuapp.com/users/", {
+    fetch("http://localhost:4001/users/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -78,7 +80,7 @@ const Register = () => {
   return user.id ? (
     <Navigate to="/" replace={true}></Navigate>
   ) : (
-    <>
+    <div css={container}>
       <h1 className="my-5 text-center">Register</h1>
       <Form onSubmit={(e) => registerUser(e)} className="m-3">
         <Form.Group>
@@ -108,7 +110,7 @@ const Register = () => {
         <Form.Group>
           <Form.Label>Password:</Form.Label>
           <Form.Control
-            type="text"
+            type="password"
             placeholder="Password Name..."
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
@@ -116,7 +118,7 @@ const Register = () => {
         <Form.Group>
           <Form.Label>Confirm Password:</Form.Label>
           <Form.Control
-            type="text"
+            type="password"
             placeholder="Confirm Password..."
             onChange={(e) => setConfirmPassword(e.target.value)}
           ></Form.Control>
@@ -139,8 +141,21 @@ const Register = () => {
           </Button>
         )}
       </Form>
-    </>
+    </div>
   );
 };
+
+const container = css`
+  margin: 5rem auto 0 auto;
+  h1 {
+    font-family: "Permanent Marker", cursive;
+    text-align: center;
+  }
+  width: 90%;
+  //Tablet Screen----------
+  @media (min-width: 481px) {
+    width: 500px;
+  }
+`;
 
 export default Register;

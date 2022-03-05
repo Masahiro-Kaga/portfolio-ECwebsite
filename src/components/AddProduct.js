@@ -9,7 +9,7 @@ const AddProduct = () => {
 
   const addProduct = (e) => {
     e.preventDefault();
-    fetch("https://shielded-forest-80023.herokuapp.com/products/createProduct", {
+    fetch("http://localhost:4001/products/createProduct", {
       method: "POST",
       headers: {
         "Content-type": "application/json",

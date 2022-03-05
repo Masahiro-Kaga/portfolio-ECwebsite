@@ -4,6 +4,8 @@ import { Button, Form } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import UserContext from "../userContext";
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -14,7 +16,7 @@ const Login = () => {
   const loginUser = (e) => {
     e.preventDefault();
     // console.log(email,password)
-    fetch("https://shielded-forest-80023.herokuapp.com/users/login", {
+    fetch("http://localhost:4001/users/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,7 +37,7 @@ const Login = () => {
             text: "Thank you for registration.",
           });
 
-          fetch("https://shielded-forest-80023.herokuapp.com/users/getUserDetails", {
+          fetch("http://localhost:4001/users/getUserDetails", {
             headers: {
               Authorization: `Bearer ${data.accessToken}`,
             },
@@ -60,7 +62,7 @@ const Login = () => {
   return user.id ? (
     <Navigate to="/" replace={true}></Navigate>
   ) : (
-    <>
+    <div css={container}>
       <h1 className="my-5 text-center">Login</h1>
       <Form onSubmit={(e) => loginUser(e)}>
         <Form.Group className="m-3">
@@ -74,7 +76,7 @@ const Login = () => {
         <Form.Group className="m-3">
           <Form.Label>Password:</Form.Label>
           <Form.Control
-            type="text"
+            type="password"
             placeholder="Password Name..."
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
@@ -83,8 +85,21 @@ const Login = () => {
           Login
         </Button>
       </Form>
-    </>
+    </div>
   );
 };
+
+const container = css`
+  margin: 10rem auto 0 auto;
+  h1 {
+    font-family: "Permanent Marker", cursive;
+    text-align: center;
+  }
+  width: 90%;
+  //Tablet Screen----------
+  @media (min-width: 481px) {
+    width: 500px;
+  }
+`;
 
 export default Login;
