@@ -74,23 +74,25 @@ const Home = () => {
       <h1 css={features}>Features</h1>
       <Row className="mx-2">
         {randomProductIndex.map((index) => (
-          <Col key={index} className="my-2" xs={12} lg={4}>
-            <Card>
+          <Col key={index} className="my-5" xs={12} lg={4}>
+            <Card border="light">
               <Card.Img
                 src={`https://source.unsplash.com/featured/?${activeProducts[index].name}`}
-                style={{ height: "30vh", objectFit: "cover" }}
+                style={{ height: "30vh", objectFit: "cover" ,"borderRadius":"15px 50px"}}
               />
-              <Card.Body>
+              <Card.Body className="px-4" style={{"backgroundColor":"rgb(15,21,42)" , "color":"white" ,"borderRadius":"15px 50px"}}>
+                <div css={cardSeparator}>
                 <Card.Title>{activeProducts[index].name}</Card.Title>
-                <Card.Subtitle>
-                  {activeProducts[index].description}
-                </Card.Subtitle>
                 <Card.Text>
                   {activeProducts[index].price.toLocaleString("ja-JP", {
                     style: "currency",
                     currency: "JPY",
                   })}
                 </Card.Text>
+                </div>
+                <Card.Subtitle>
+                  {activeProducts[index].description}
+                </Card.Subtitle>
               </Card.Body>
             </Card>
           </Col>
@@ -103,10 +105,11 @@ const Home = () => {
 };
 
 const carouselImg = css`
-  height: 300px;
+  height: 600px;
   object-fit: cover;
-  @media (min-width: 769px) {
-    height: calc(100vh - 64px);
+  @media (min-width: 481px) {
+    /* height: calc(100vh - 64px); */
+    height: 100vh;
   }
 `;
 
@@ -117,8 +120,9 @@ const deals = css`
   top: calc(300px / 2);
   text-align: center;
   color: white;
+  /* mix-blend-mode:normal; */
   z-index: 10;
-  @media (min-width: 769px) {
+  @media (min-width: 481px) {
     top: 50%;
   }
   a {
@@ -131,6 +135,12 @@ const features = css`
   margin: 10rem auto;
   font-family: "Permanent Marker", cursive;
 `;
+
+const cardSeparator = css`
+  display:flex;
+  justify-content: space-between;
+  
+`
 
 // import React, { useEffect, useState } from "react";
 // import { Card, Col, Image, Row } from "react-bootstrap";

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const StatusChanger = () => {
+const StatusChanger = (props) => {
   const [allProducts, setAllProducts] = useState([]);
   const [changedStatusItem, setChangedStatusItem] = useState({});
 
@@ -51,7 +51,7 @@ const StatusChanger = () => {
         );
       });
     // console.log(changedStatusItem);
-  }, [changedStatusItem]);
+  }, [changedStatusItem,props.noticeAddedProduct]);
 
   const changeStatusHandler = (activateStatus) => {
     fetch(`http://localhost:4001/products/changeStatus/${activateStatus._id}`, {
@@ -69,7 +69,7 @@ const StatusChanger = () => {
 
   return (
     <>
-      <h1 className="my-5 text-center">Activate/Archive/Update Products</h1>
+      <h2 className="my-5 text-center">Activate/Archive/Update Products</h2>
       <Table striped bordered hover responsive>
         <thead>
           <tr>

@@ -146,7 +146,7 @@ const Register = () => {
 };
 
 const container = css`
-  margin: 5rem auto 0 auto;
+  margin: 10rem auto 0 auto;
   h1 {
     font-family: "Permanent Marker", cursive;
     text-align: center;

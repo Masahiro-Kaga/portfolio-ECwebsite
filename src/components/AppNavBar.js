@@ -20,6 +20,8 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import * as React from "react";
 import { Link } from "react-router-dom";
 import UserContext from "../userContext";
+import { Navigate } from "react-router-dom";
+
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 
@@ -62,69 +64,71 @@ const AppNavBar = () => {
   });
 
   return (
-    <ThemeProvider theme={darkTheme}>
-      <AppBar position="static">
-        <Container maxWidth="xl">
-          <Toolbar disableGutters>
-            <Typography
-              noWrap
-              component="div"
-              css={logo_wide_screen}
-              sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
-              as={Link}
-              to="/"
-            >
-              <img src="/images/logo_illust.png" alt="" />
-            </Typography>
+    <AppBar position="fixed" style={{ backgroundColor: "rgb(15,21,42)" }}>
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <Typography
+            noWrap
+            component="div"
+            css={logo_wide_screen}
+            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+            as={Link}
+            to="/"
+          >
+            <img src="/images/logo_illust.png" alt="" />
+          </Typography>
 
-            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-              {user.id && user.isAdmin ? (
-                "Admin"
-              ) : (
-                // <IconButton
-                //   size="large"
-                //   aria-label="account of current user"
-                //   aria-controls="menu-appbar"
-                //   aria-haspopup="true"
-                //   onClick={handleOpenNavMenu}
-                //   color="inherit"
-                // >
-                //   <MenuIcon />
-                // </IconButton>
-                <Button
-                  id="basic-button"
-                  variant="outlined"
-                  onClick={handleOpenNavMenu}
-                >
-                  Menu
-                </Button>
-              )}
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "left",
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{
-                  display: { xs: "block", md: "none" },
-                }}
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+            {user.id && user.isAdmin ? (
+              "Admin"
+            ) : (
+              // <IconButton
+              //   size="large"
+              //   aria-label="account of current user"
+              //   aria-controls="menu-appbar"
+              //   aria-haspopup="true"
+              //   onClick={handleOpenNavMenu}
+              //   color="inherit"
+              // >
+              //   <MenuIcon />
+              // </IconButton>
+              <Button
+                id="basic-button"
+                variant="outlined"
+                onClick={handleOpenNavMenu}
               >
-                <MenuItem onClick={handleCloseNavMenu} component={Link} to="/">
-                  <HomeIcon>
-                    <AdminPanelSettingsIcon fontSize="small" />
-                  </HomeIcon>
-                  <Typography noWrap className="mx-2">
-                    Home
-                  </Typography>
-                </MenuItem>
+                Menu
+              </Button>
+            )}
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: "block", md: "none" },
+              }}
+            >
+              <MenuItem onClick={handleCloseNavMenu} component={Link} to="/">
+                <HomeIcon>
+                  <AdminPanelSettingsIcon fontSize="small" />
+                </HomeIcon>
+                <Typography noWrap className="mx-2">
+                  Home
+                </Typography>
+              </MenuItem>
+              {user.id ? (
+                ""
+              ) : (
                 <MenuItem
                   onClick={handleCloseNavMenu}
                   component={Link}
@@ -137,146 +141,104 @@ const AppNavBar = () => {
                     Register
                   </Typography>
                 </MenuItem>
-                <MenuItem
-                  onClick={handleCloseNavMenu}
-                  component={Link}
-                  to="/viewActiveProducts"
-                >
-                  <CategoryIcon>
-                    <AdminPanelSettingsIcon fontSize="small" />
-                  </CategoryIcon>
-                  <Typography noWrap className="mx-2">
-                    Products
-                  </Typography>
-                </MenuItem>
-              </Menu>
-            </Box>
-            <Typography
-              noWrap
-              component="div"
-              css={logo_short_screen}
-              sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
-              as={Link}
-              to="/"
-            >
-              <img src="/images/logo_title.png" alt="" />
-            </Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              <Typography
+              )}
+              <MenuItem
                 onClick={handleCloseNavMenu}
-                sx={{ m: 2, color: "white", display: "block" }}
-                style={{ textDecoration: "none" }}
-                as={Link}
-                to="/"
-              >
-                Home
-              </Typography>
-              <Typography
-                onClick={handleCloseNavMenu}
-                sx={{ m: 2, color: "white", display: "block" }}
-                style={{ textDecoration: "none" }}
-                as={Link}
-                to="/register"
-              >
-                Register
-              </Typography>
-              <Typography
-                onClick={handleCloseNavMenu}
-                sx={{ m: 2, color: "white", display: "block" }}
-                style={{ textDecoration: "none" }}
-                as={Link}
+                component={Link}
                 to="/viewActiveProducts"
               >
-                Products
-              </Typography>
-            </Box>
-
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <div
-                    css={openmenubtn}
-                    className={anchorElUser ? "active" : ""}
-                  >
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                  </div>
-                </IconButton>
-              </Tooltip>
-
-              {user.id ? (
-                user.isAdmin ? (
-                  <Menu
-                    sx={{ mt: "45px" }}
-                    id="menu-appbar"
-                    anchorEl={anchorElUser}
-                    anchorOrigin={{
-                      vertical: "top",
-                      horizontal: "right",
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                      vertical: "top",
-                      horizontal: "right",
-                    }}
-                    open={Boolean(anchorElUser)}
-                    onClose={handleCloseUserMenu}
-                  >
-                    <MenuItem
-                      onClick={handleCloseUserMenu}
-                      component={Link}
-                      // component={NavLink}
-                      to="/adminDashboard"
-                    >
-                      <ListItemIcon>
-                        <AdminPanelSettingsIcon fontSize="small" />
-                      </ListItemIcon>
-                      <Typography noWrap>Dashboard</Typography>
-                    </MenuItem>
-                    <MenuItem
-                      onClick={logoutHandler}
-                      component={Link}
-                      // component={NavLink}
-                      to="/login"
-                    >
-                      <ListItemIcon>
-                        <LogoutIcon fontSize="small" />
-                      </ListItemIcon>
-                      <Typography noWrap>Logout</Typography>
-                    </MenuItem>
-                  </Menu>
-                ) : (
-                  <Menu
-                    sx={{ mt: "45px" }}
-                    id="menu-appbar"
-                    anchorEl={anchorElUser}
-                    anchorOrigin={{
-                      vertical: "top",
-                      horizontal: "right",
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                      vertical: "top",
-                      horizontal: "right",
-                    }}
-                    open={Boolean(anchorElUser)}
-                    onClose={handleCloseUserMenu}
-                  >
-                    <MenuItem
-                      onClick={logoutHandler}
-                      component={Link}
-                      // component={NavLink}
-                      to="/login"
-                    >
-                      <ListItemIcon>
-                        <LogoutIcon fontSize="small" />
-                      </ListItemIcon>
-                      <Typography noWrap>Logout</Typography>
-                    </MenuItem>
-                  </Menu>
-                )
+                <CategoryIcon>
+                  <AdminPanelSettingsIcon fontSize="small" />
+                </CategoryIcon>
+                <Typography noWrap className="mx-2">
+                  Products
+                </Typography>
+              </MenuItem>
+            </Menu>
+          </Box>
+          <Typography
+            noWrap
+            component="div"
+            css={logo_short_screen}
+            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
+            as={Link}
+            to="/"
+          >
+            <img src="/images/logo_title.png" alt="" />
+          </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            {user.id ? (
+              user.isAdmin ? (
+                "Admin"
               ) : (
+                <>
+                  <Typography
+                    onClick={handleCloseNavMenu}
+                    sx={{ m: 2, color: "white", display: "block" }}
+                    style={{ textDecoration: "none" }}
+                    as={Link}
+                    to="/"
+                  >
+                    Home
+                  </Typography>
+
+                  <Typography
+                    onClick={handleCloseNavMenu}
+                    sx={{ m: 2, color: "white", display: "block" }}
+                    style={{ textDecoration: "none" }}
+                    as={Link}
+                    to="/viewActiveProducts"
+                  >
+                    Products
+                  </Typography>
+                </>
+              )
+            ) : (
+              <>
+                <Typography
+                  onClick={handleCloseNavMenu}
+                  sx={{ m: 2, color: "white", display: "block" }}
+                  style={{ textDecoration: "none" }}
+                  as={Link}
+                  to="/"
+                >
+                  Home
+                </Typography>
+                <Typography
+                  onClick={handleCloseNavMenu}
+                  sx={{ m: 2, color: "white", display: "block" }}
+                  style={{ textDecoration: "none" }}
+                  as={Link}
+                  to="/register"
+                >
+                  Register
+                </Typography>
+                <Typography
+                  onClick={handleCloseNavMenu}
+                  sx={{ m: 2, color: "white", display: "block" }}
+                  style={{ textDecoration: "none" }}
+                  as={Link}
+                  to="/viewActiveProducts"
+                >
+                  Products
+                </Typography>
+              </>
+            )}
+          </Box>
+
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <div css={openmenubtn} className={anchorElUser ? "active" : ""}>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </IconButton>
+            </Tooltip>
+
+            {user.id ? (
+              user.isAdmin ? (
                 <Menu
                   sx={{ mt: "45px" }}
                   id="menu-appbar"
@@ -297,20 +259,89 @@ const AppNavBar = () => {
                     onClick={handleCloseUserMenu}
                     component={Link}
                     // component={NavLink}
+                    to="/adminDashboard"
+                  >
+                    <ListItemIcon>
+                      <AdminPanelSettingsIcon fontSize="small" />
+                    </ListItemIcon>
+                    <Typography noWrap>Dashboard</Typography>
+                  </MenuItem>
+                  <MenuItem
+                    onClick={logoutHandler}
+                    component={Link}
+                    // component={NavLink}
                     to="/login"
                   >
                     <ListItemIcon>
-                      <LoginIcon fontSize="small" />
+                      <LogoutIcon fontSize="small" />
                     </ListItemIcon>
-                    <Typography noWrap>Login</Typography>
+                    <Typography noWrap>Logout</Typography>
                   </MenuItem>
                 </Menu>
-              )}
-            </Box>
-          </Toolbar>
-        </Container>
-      </AppBar>
-    </ThemeProvider>
+              ) : (
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  <MenuItem
+                    onClick={logoutHandler}
+                    component={Link}
+                    // component={NavLink}
+                    to="/login"
+                  >
+                    <ListItemIcon>
+                      <LogoutIcon fontSize="small" />
+                    </ListItemIcon>
+                    <Typography noWrap>Logout</Typography>
+                  </MenuItem>
+                </Menu>
+              )
+            ) : (
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                <MenuItem
+                  onClick={handleCloseUserMenu}
+                  component={Link}
+                  // component={NavLink}
+                  to="/login"
+                >
+                  <ListItemIcon>
+                    <LoginIcon fontSize="small" />
+                  </ListItemIcon>
+                  <Typography noWrap>Login</Typography>
+                </MenuItem>
+              </Menu>
+            )}
+          </Box>
+        </Toolbar>
+      </Container>
+    </AppBar>
   );
 };
 

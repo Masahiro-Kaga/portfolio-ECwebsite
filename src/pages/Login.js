@@ -33,8 +33,8 @@ const Login = () => {
         if (data.accessToken) {
           Swal.fire({
             icon: "success",
-            title: "Registration Sucecss!",
-            text: "Thank you for registration.",
+            title: "Login Successful!",
+            text: "Congraturation for Login.",
           });
 
           fetch("http://localhost:4001/users/getUserDetails", {
@@ -52,15 +52,19 @@ const Login = () => {
         } else {
           Swal.fire({
             icon: "error",
-            title: "Registration Failed",
-            text: "Please try to register.",
+            title: "Login Failed",
+            text: "Please retry to Login.",
           });
         }
       });
   };
 
   return user.id ? (
+    user.isAdmin ? ( 
+    <Navigate to="/adminDashboard" replace={true}></Navigate> ) :
+    (
     <Navigate to="/" replace={true}></Navigate>
+    )
   ) : (
     <div css={container}>
       <h1 className="my-5 text-center">Login</h1>

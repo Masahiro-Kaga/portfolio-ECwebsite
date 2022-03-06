@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import Swal from "sweetalert2";
 
-const AddProduct = () => {
+const AddProduct = (props) => {
   const [productName, setProductName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -37,18 +37,23 @@ const AddProduct = () => {
             text: "Please try to Add products.",
           });
         }
+        setProductName("");
+        setDescription("");
+        setPrice("");
       });
   };
 
   return (
     <>
-      <h1 className="my-5 text-center">Add Product</h1>
+      <h2 className="my-5 text-center">Add Product</h2>
       <Form onSubmit={(e) => addProduct(e)}>
         <Form.Group className="m-3">
           <Form.Label>Product Name:</Form.Label>
           <Form.Control
             type="text"
             placeholder="Product Name"
+            required
+            value={productName}
             onChange={(e) => setProductName(e.target.value)}
           ></Form.Control>
         </Form.Group>
@@ -57,6 +62,8 @@ const AddProduct = () => {
           <Form.Control
             type="text"
             placeholder="Description"
+            required
+            value={description}
             onChange={(e) => setDescription(e.target.value)}
           ></Form.Control>
         </Form.Group>
@@ -65,11 +72,14 @@ const AddProduct = () => {
           <Form.Control
             type="number"
             placeholder="Price"
+            required
+            value={price}
             onChange={(e) => setPrice(e.target.value)}
           ></Form.Control>
         </Form.Group>
         <Button type="submit" className="m-3">
           Add Product
+          {props.setNoticeAddedProduct(productName)}
         </Button>
       </Form>
     </>

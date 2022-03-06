@@ -30,8 +30,9 @@ const UpdateProduct = () => {
       .then((res) => res.json())
       .then((data) => {
         setSelectedProduct(
-          <Row className="my-3">
-            <Col xs={12} md={4}>
+          <Row style={{ margin: "8rem auto" }}>
+            <h1 style={{ color: "red" }}>Selected Item</h1>
+            <Col xs={12}>
               <Card className="p-3 cardHighlight">
                 <Card.Body>
                   <Card.Title>
@@ -44,6 +45,19 @@ const UpdateProduct = () => {
             </Col>
           </Row>
         );
+        if (data._id) {
+          Swal.fire({
+            icon: "success",
+            title: "Update Sucecss!",
+            text: "Check new Status.",
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Update Failed",
+            text: "Please try to update.",
+          });
+        }
       });
   };
 
@@ -55,29 +69,22 @@ const UpdateProduct = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        // if (data._id) {
-        //   Swal.fire({
-        //     icon: "success",
-        //     title: "Update Sucecss!",
-        //     text: "Check new Status.",
-        //   });
-        // } else {
-        //   Swal.fire({
-        //     icon: "error",
-        //     title: "Update Failed",
-        //     text: "Please try to update.",
-        //   });
-        // }
         setSelectedProduct(
-          <Row className="my-3">
-            <Col xs={12} md={4}>
+          <Row style={{ margin: "8rem auto" }}>
+            <h1 style={{ color: "red" }}>Selected Item</h1>
+            <Col xs={12}>
               <Card className="p-3 cardHighlight">
                 <Card.Body>
                   <Card.Title>
                     <h2>Product Name : {data.name}</h2>
                     <Card.Text>Description : {data.description}</Card.Text>
-                    <Card.Text>Price : {data.price.toLocaleString('ja-JP', {style:'currency', currency: 'JPY'})}</Card.Text>
+                    <Card.Text>
+                      Price :{" "}
+                      {data.price.toLocaleString("ja-JP", {
+                        style: "currency",
+                        currency: "JPY",
+                      })}
+                    </Card.Text>
                   </Card.Title>
                 </Card.Body>
               </Card>

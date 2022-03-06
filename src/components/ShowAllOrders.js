@@ -15,7 +15,7 @@ const ShowAllOrders = () => {
 
   return (
     <>
-      <h1 className="my-5 text-center">View all orders</h1>
+      <h2 className="my-5 text-center">View all orders</h2>
       <Table striped bordered hover responsive>
         <thead>
           <tr>
