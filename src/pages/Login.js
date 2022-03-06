@@ -15,7 +15,7 @@ const Login = () => {
   const loginUser = (e) => {
     e.preventDefault();
     // console.log(email,password)
-    fetch("http://localhost:4001/users/login", {
+    fetch("floating-stream-65303.herokuapp.com/users/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -36,7 +36,7 @@ const Login = () => {
             text: "Congraturation for Login.",
           });
 
-          fetch("http://localhost:4001/users/getUserDetails", {
+          fetch("floating-stream-65303.herokuapp.com/users/getUserDetails", {
             headers: {
               Authorization: `Bearer ${data.accessToken}`,
             },

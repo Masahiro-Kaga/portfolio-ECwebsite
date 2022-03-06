@@ -15,7 +15,7 @@ const ViewActiveProducts = () => {
   const handleShow = () => setShow(true);
 
   useEffect(() => {
-    fetch("http://localhost:4001/products/retrieveAllActive")
+    fetch("floating-stream-65303.herokuapp.com/products/retrieveAllActive")
       .then((res) => res.json())
       .then((data) => {
         let list = [];

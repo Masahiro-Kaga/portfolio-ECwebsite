@@ -15,7 +15,7 @@ const UpdateProduct = () => {
 
   const updateProduct = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:4001/products/updateProductInfo/${productId}`, {
+    fetch(`floating-stream-65303.herokuapp.com/products/updateProductInfo/${productId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -62,7 +62,7 @@ const UpdateProduct = () => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:4001/products/retrieveSingleProduct/${productId}`, {
+    fetch(`floating-stream-65303.herokuapp.com/products/retrieveSingleProduct/${productId}`, {
       headers: {
         "Content-Type": "application/json",
       },

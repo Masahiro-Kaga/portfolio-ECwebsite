@@ -9,7 +9,7 @@ const AddProduct = (props) => {
 
   const addProduct = (e) => {
     e.preventDefault();
-    fetch("http://localhost:4001/products/createProduct", {
+    fetch("floating-stream-65303.herokuapp.com/products/createProduct", {
       method: "POST",
       headers: {
         "Content-type": "application/json",

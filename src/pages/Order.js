@@ -34,7 +34,7 @@ const Order = () => {
   // console.log(orderedList);
 
   const completeOrder = () => {
-    fetch("http://localhost:4001/orders", {
+    fetch("floating-stream-65303.herokuapp.com/orders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

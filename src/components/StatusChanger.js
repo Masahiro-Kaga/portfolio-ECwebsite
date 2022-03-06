@@ -7,7 +7,7 @@ const StatusChanger = (props) => {
   const [changedStatusItem, setChangedStatusItem] = useState({});
 
   useEffect(() => {
-    fetch("http://localhost:4001/products/getAllProducts", {
+    fetch("floating-stream-65303.herokuapp.com/products/getAllProducts", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -54,7 +54,7 @@ const StatusChanger = (props) => {
   }, [changedStatusItem,props.noticeAddedProduct]);
 
   const changeStatusHandler = (activateStatus) => {
-    fetch(`http://localhost:4001/products/changeStatus/${activateStatus._id}`, {
+    fetch(`floating-stream-65303.herokuapp.com/products/changeStatus/${activateStatus._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
