@@ -26,7 +26,7 @@ function App() {
   }
   useEffect(() => {
 
-    fetch("floating-stream-65303.herokuapp.com/users/getUserDetails", {
+    fetch("https://floating-stream-65303.herokuapp.com/users/getUserDetails", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },

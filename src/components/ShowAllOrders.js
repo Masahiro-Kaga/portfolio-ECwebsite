@@ -4,7 +4,7 @@ import { Table } from "react-bootstrap";
 const ShowAllOrders = () => {
   const [totalOrders, setTotalOrders] = useState([]);
   useEffect(() => {
-    fetch("floating-stream-65303.herokuapp.com/orders/allOrders", {
+    fetch("https://floating-stream-65303.herokuapp.com/orders/allOrders", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },

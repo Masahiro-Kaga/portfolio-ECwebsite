@@ -9,7 +9,7 @@ const Home = () => {
   const [randomProductIndex, setRandomProductIndex] = useState([]);
   const [threeAndMoreArray, setThreeAndMoreArray] = useState(false);
   useEffect(() => {
-    fetch("floating-stream-65303.herokuapp.com/products/retrieveAllActive", {
+    fetch("https://floating-stream-65303.herokuapp.com/products/retrieveAllActive", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
