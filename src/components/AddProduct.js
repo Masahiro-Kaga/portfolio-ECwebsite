@@ -40,6 +40,7 @@ const AddProduct = (props) => {
         setProductName("");
         setDescription("");
         setPrice("");
+        props.setNoticeAddedProduct(productName);
       });
   };
 
@@ -79,7 +80,6 @@ const AddProduct = (props) => {
         </Form.Group>
         <Button type="submit" className="m-3">
           Add Product
-          {props.setNoticeAddedProduct(productName)}
         </Button>
       </Form>
     </>

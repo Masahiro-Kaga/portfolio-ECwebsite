@@ -1,29 +1,25 @@
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import CategoryIcon from "@mui/icons-material/Category";
 import HomeIcon from "@mui/icons-material/Home";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
-import MenuIcon from "@mui/icons-material/Menu";
 import { Button, ListItemIcon } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
-import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+// import { createTheme } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
 import * as React from "react";
 import { Link } from "react-router-dom";
 import UserContext from "../userContext";
-import { Navigate } from "react-router-dom";
-
-/** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
 
 const AppNavBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -54,14 +50,14 @@ const AppNavBar = () => {
     });
   };
 
-  const darkTheme = createTheme({
-    palette: {
-      mode: "dark",
-      primary: {
-        main: "#1976d2",
-      },
-    },
-  });
+  // const darkTheme = createTheme({
+  //   palette: {
+  //     mode: "dark",
+  //     primary: {
+  //       main: "#1976d2",
+  //     },
+  //   },
+  // });
 
   return (
     <AppBar position="fixed" style={{ backgroundColor: "rgb(15,21,42)" }}>

@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap";
-import Swal from "sweetalert2";
-import { useContext } from "react";
-import UserContext from "../userContext";
-import { Navigate } from "react-router-dom";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import React, { useContext, useEffect, useState } from "react";
+import { Button, Form } from "react-bootstrap";
+import { Navigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import UserContext from "../userContext";
 
 const Register = () => {
   const [firstName, setFirstName] = useState("");
@@ -14,14 +13,12 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [mobileNo, setMobileNo] = useState("");
-
   const [isActive, setIsActive] = useState(false);
 
   const { user } = useContext(UserContext);
-
-  const context = useContext(UserContext);
+  // const context = useContext(UserContext);
+  
   // console.log(context);
-
   // console.log(firstName,lastName,email,password,confirmPassword,mobileNo);
 
   const registerUser = (e) => {

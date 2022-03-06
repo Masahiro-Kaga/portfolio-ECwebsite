@@ -1,11 +1,10 @@
-import React, { useState } from "react";
-import { useContext } from "react";
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
+import React, { useContext, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import UserContext from "../userContext";
-/** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -60,10 +59,10 @@ const Login = () => {
   };
 
   return user.id ? (
-    user.isAdmin ? ( 
-    <Navigate to="/adminDashboard" replace={true}></Navigate> ) :
-    (
-    <Navigate to="/" replace={true}></Navigate>
+    user.isAdmin ? (
+      <Navigate to="/adminDashboard" replace={true}></Navigate>
+    ) : (
+      <Navigate to="/" replace={true}></Navigate>
     )
   ) : (
     <div css={container}>

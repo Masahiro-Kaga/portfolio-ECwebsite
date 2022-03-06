@@ -1,14 +1,13 @@
-import React, { Fragment, useEffect, useState } from "react";
-import { Card, Carousel, Col, Row } from "react-bootstrap";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { Button } from "@mui/material";
+import React, { Fragment, useEffect, useState } from "react";
+import { Card, Carousel, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { NavLink } from "react-router-dom";
 
 const Home = () => {
   const [activeProducts, setActiveProducts] = useState([]);
   const [randomProductIndex, setRandomProductIndex] = useState([]);
+  const [threeAndMoreArray, setThreeAndMoreArray] = useState(false);
   useEffect(() => {
     fetch("http://localhost:4001/products/retrieveAllActive", {
       headers: {
@@ -21,6 +20,11 @@ const Home = () => {
         let randoms = [];
         let min = 0;
         let max = data.length;
+        if (data.length >= 3) {
+          setThreeAndMoreArray(true);
+        } else {
+          return;
+        }
         function intRandom(min, max) {
           return Math.floor(Math.random() * (max - min)) + min;
         }
@@ -37,69 +41,96 @@ const Home = () => {
         setRandomProductIndex(randoms);
       });
   }, []);
-  console.log(activeProducts);
-  console.log(randomProductIndex);
+
+  // console.log(activeProducts);
+  // console.log(randomProductIndex);
+
   return (
     <Fragment>
-      <Carousel fade>
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src={`https://source.unsplash.com/featured/?nature`}
-            alt="First slide"
-            css={carouselImg}
-          />
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src={`https://source.unsplash.com/featured/?travel`}
-            alt="Second slide"
-            css={carouselImg}
-          />
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src={`https://source.unsplash.com/featured/?worldheritage`}
-            alt="Third slide"
-            css={carouselImg}
-          />
-        </Carousel.Item>
-      </Carousel>
-      <h1 css={deals}>
-        A challenge to visit worlds with nice GEAR
-        <br />
-      </h1>
-      <h1 css={features}>Features</h1>
-      <Row className="mx-2">
-        {randomProductIndex.map((index) => (
-          <Col key={index} className="my-5" xs={12} lg={4}>
-            <Card border="light">
-              <Card.Img
-                src={`https://source.unsplash.com/featured/?${activeProducts[index].name}`}
-                style={{ height: "30vh", objectFit: "cover" ,"borderRadius":"15px 50px"}}
+      {threeAndMoreArray ? (
+        <>
+          <Carousel fade>
+            <Carousel.Item>
+              <img
+                className="d-block w-100"
+                src={`https://source.unsplash.com/featured/?nature`}
+                alt="First slide"
+                css={carouselImg}
               />
-              <Card.Body className="px-4" style={{"backgroundColor":"rgb(15,21,42)" , "color":"white" ,"borderRadius":"15px 50px"}}>
-                <div css={cardSeparator}>
-                <Card.Title>{activeProducts[index].name}</Card.Title>
-                <Card.Text>
-                  {activeProducts[index].price.toLocaleString("ja-JP", {
-                    style: "currency",
-                    currency: "JPY",
-                  })}
-                </Card.Text>
-                </div>
-                <Card.Subtitle>
-                  {activeProducts[index].description}
-                </Card.Subtitle>
-              </Card.Body>
-            </Card>
-          </Col>
-        ))}
-      </Row>
-      <Link to="/viewActiveProducts"><h1 css={features}>And more...</h1></Link>
-      
+            </Carousel.Item>
+            <Carousel.Item>
+              <img
+                className="d-block w-100"
+                src={`https://source.unsplash.com/featured/?travel`}
+                alt="Second slide"
+                css={carouselImg}
+              />
+            </Carousel.Item>
+            <Carousel.Item>
+              <img
+                className="d-block w-100"
+                src={`https://source.unsplash.com/featured/?worldheritage`}
+                alt="Third slide"
+                css={carouselImg}
+              />
+            </Carousel.Item>
+          </Carousel>
+          <h1 css={deals}>
+            A challenge to visit worlds with nice GEAR
+            <br />
+          </h1>
+          <h1 css={features}>Features</h1>
+          <Row className="mx-2">
+            {randomProductIndex.map((index) => (
+              <Col key={index} className="my-5" xs={12} lg={4}>
+                <Card border="light">
+                  <Card.Img
+                    src={`https://source.unsplash.com/featured/?${activeProducts[index].name}`}
+                    style={{
+                      height: "30vh",
+                      objectFit: "cover",
+                      borderRadius: "15px 50px",
+                    }}
+                  />
+                  <Card.Body
+                    className="px-4"
+                    style={{
+                      backgroundColor: "rgb(15,21,42)",
+                      color: "white",
+                      borderRadius: "15px 50px",
+                    }}
+                  >
+                    <div css={cardSeparator}>
+                      <Card.Title>{activeProducts[index].name}</Card.Title>
+                      <Card.Text>
+                        {activeProducts[index].price.toLocaleString("ja-JP", {
+                          style: "currency",
+                          currency: "JPY",
+                        })}
+                      </Card.Text>
+                    </div>
+                    <Card.Subtitle>
+                      {activeProducts[index].description}
+                    </Card.Subtitle>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+          <Link to="/viewActiveProducts">
+            <h1 css={features}>And more...</h1>
+          </Link>
+        </>
+      ) : (
+        <>
+          <h1 style={{ margin: "10rem 0 0" , textAlign:"center"}}>No added product yet.</h1>
+          <br></br>
+          <p style={{ textAlign:"center"}}>1 Register first user with Postman.</p>
+          <p style={{ textAlign:"center"}}>2 Change status of this user to isAdmin=true with Mongodb.</p>
+          <p style={{ textAlign:"center"}}>3 Add product at least three.</p>
+          <p style={{ textAlign:"center"}}>4 Refresh page.</p>
+        </>
+      )}
     </Fragment>
   );
 };
@@ -137,69 +168,8 @@ const features = css`
 `;
 
 const cardSeparator = css`
-  display:flex;
+  display: flex;
   justify-content: space-between;
-  
-`
-
-// import React, { useEffect, useState } from "react";
-// import { Card, Col, Image, Row } from "react-bootstrap";
-
-// const Home = () => {
-//   const [activeProducts, setActiveProducts] = useState([]);
-//   const [randomProductIndex, setRandomProductIndex] = useState(0);
-//   useEffect(() => {
-//     fetch("http://localhost:4001/products/retrieveAllActive", {
-//       headers: {
-//         Authorization: `Bearer ${localStorage.getItem("token")}`,
-//       },
-//     })
-//       .then((res) => res.json())
-//       .then((data) => {
-//         setActiveProducts(data);
-//         setRandomProductIndex(Math.floor(Math.random() * data.length));
-//       });
-//   }, []);
-
-//   // console.log(randomProductIndex)
-//   // console.log(activeProducts);
-//   // console.log(activeProducts.length);
-
-//   return (
-//     <>
-//       <h1 className="my-5 text-center">Home</h1>
-//       <h2 className="my-5 text-center">Today's Deal!</h2>
-//       <Card className="p-3 m-3 cardHighlight">
-//         <Row>
-//           <Col xs={6}>
-//             {activeProducts.length !== 0 && (
-//               <Card.Body>
-//                 <h2>
-//                   Product Name : {activeProducts[randomProductIndex].name}
-//                 </h2>
-//                 <Card.Text>
-//                   Description : {activeProducts[randomProductIndex].description}
-//                 </Card.Text>
-//                 <Card.Text>
-//                   Price : {activeProducts[randomProductIndex].price}
-//                 </Card.Text>
-//               </Card.Body>
-//             )}
-//           </Col>
-//           <Col xs={6}>
-//             <figure>
-//               {activeProducts.length !== 0 && (
-//                 <Image
-//                   src={`https://source.unsplash.com/featured/?${activeProducts[randomProductIndex].name}`}
-//                   width="100%"
-//                 ></Image>
-//               )}
-//             </figure>
-//           </Col>
-//         </Row>
-//       </Card>
-//     </>
-//   );
-// };
+`;
 
 export default Home;
