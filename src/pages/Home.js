@@ -2,18 +2,23 @@
 import { css } from "@emotion/react";
 import React, { Fragment, useEffect, useState } from "react";
 import { Card, Carousel, Col, Row } from "react-bootstrap";
+import { BallTriangle } from "react-loader-spinner";
 import { Link } from "react-router-dom";
 
 const Home = () => {
   const [activeProducts, setActiveProducts] = useState([]);
   const [randomProductIndex, setRandomProductIndex] = useState([]);
   const [threeAndMoreArray, setThreeAndMoreArray] = useState(false);
+
   useEffect(() => {
-    fetch("https://floating-stream-65303.herokuapp.com/products/retrieveAllActive", {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    })
+    fetch(
+      "https://floating-stream-65303.herokuapp.com/products/retrieveAllActive",
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setActiveProducts(data);
@@ -44,6 +49,11 @@ const Home = () => {
 
   // console.log(activeProducts);
   // console.log(randomProductIndex);
+
+  if(!threeAndMoreArray){
+    console.log("No added product yet.")
+  }
+
 
   return (
     <Fragment>
@@ -118,18 +128,25 @@ const Home = () => {
             ))}
           </Row>
           <Link to="/viewActiveProducts">
-            <h1 css={features}>And more...<img src="images/product_icon.png" alt="product icon"></img></h1>
+            <h1 css={features}>
+              And more...
+              <img src="images/product_icon.png" alt="product icon"></img>
+            </h1>
           </Link>
         </>
       ) : (
-        <>
-          <h1 style={{ margin: "10rem 0 0" , textAlign:"center"}}>No added product yet.</h1>
-          <br></br>
-          <p style={{ textAlign:"center"}}>1 Register first user with Postman.</p>
-          <p style={{ textAlign:"center"}}>2 Change status of this user to isAdmin=true with Mongodb.</p>
-          <p style={{ textAlign:"center"}}>3 Add product at least three.</p>
-          <p style={{ textAlign:"center"}}>4 Refresh page.</p>
-        </>
+        // <>
+        //   <h1 style={{ margin: "10rem 0 0" , textAlign:"center"}}>No added product yet.</h1>
+        //   <br></br>
+        //   <p style={{ textAlign:"center"}}>1 Register first user with Postman.</p>
+        //   <p style={{ textAlign:"center"}}>2 Change status of this user to isAdmin=true with Mongodb.</p>
+        //   <p style={{ textAlign:"center"}}>3 Add product at least three.</p>
+        //   <p style={{ textAlign:"center"}}>4 Refresh page.</p>
+        // </>
+        <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)"}}>
+          <BallTriangle color="black" height={80} width={80} />
+          {/* https://github.com/mhnpd/react-loader-spinner */}
+        </div>
       )}
     </Fragment>
   );
