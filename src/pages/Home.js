@@ -118,7 +118,7 @@ const Home = () => {
             ))}
           </Row>
           <Link to="/viewActiveProducts">
-            <h1 css={features}>And more...</h1>
+            <h1 css={features}>And more...<img src="images/product_icon.png" alt="product icon"></img></h1>
           </Link>
         </>
       ) : (
