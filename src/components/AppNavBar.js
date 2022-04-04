@@ -63,16 +63,18 @@ const AppNavBar = () => {
     <AppBar position="fixed" style={{ backgroundColor: "rgb(15,21,42)" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography
-            noWrap
-            component="div"
-            css={logo_wide_screen}
-            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
-            as={Link}
-            to="/"
-          >
-            <img src="/images/logo_illust.png" alt="" />
-          </Typography>
+          {!user.isAdmin && (
+            <Typography
+              noWrap
+              component="div"
+              css={logo_wide_screen}
+              sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+              as={Link}
+              to="/"
+            >
+              <img src="/images/logo_illust.png" alt="" />
+            </Typography>
+          )}
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             {user.id && user.isAdmin ? (
