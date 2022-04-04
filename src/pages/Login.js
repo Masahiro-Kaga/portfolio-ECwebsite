@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import React, { useContext, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Card, Form } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import UserContext from "../userContext";
@@ -36,11 +36,14 @@ const Login = () => {
             text: "Congraturation for Login.",
           });
 
-          fetch("https://floating-stream-65303.herokuapp.com/users/getUserDetails", {
-            headers: {
-              Authorization: `Bearer ${data.accessToken}`,
-            },
-          })
+          fetch(
+            "https://floating-stream-65303.herokuapp.com/users/getUserDetails",
+            {
+              headers: {
+                Authorization: `Bearer ${data.accessToken}`,
+              },
+            }
+          )
             .then((res) => res.json())
             .then((data) => {
               setUser({
@@ -58,6 +61,16 @@ const Login = () => {
       });
   };
 
+  const insertDummyInputAdmin = () => {
+    setEmail("1@1");
+    setPassword("1");
+  };
+
+  const insertDummyInputUser = () => {
+    setEmail("2@2");
+    setPassword("2");
+  };
+
   return user.id ? (
     user.isAdmin ? (
       <Navigate to="/adminDashboard" replace={true}></Navigate>
@@ -73,6 +86,7 @@ const Login = () => {
           <Form.Control
             type="email"
             placeholder="Email..."
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
           ></Form.Control>
         </Form.Group>
@@ -81,6 +95,7 @@ const Login = () => {
           <Form.Control
             type="password"
             placeholder="Password Name..."
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
@@ -88,6 +103,37 @@ const Login = () => {
           Login
         </Button>
       </Form>
+      <h3 className="mt-5 text-center">Want to login without register?</h3>
+      <p className="text-center">Try these login data below as test.</p>
+      <Card
+        style={{ width: "30rem" }}
+        className="text-center mx-auto flex flex-row"
+      >
+        <Card.Body>
+          <Card.Subtitle className="mb-2 text-muted">As Admin</Card.Subtitle>
+          <Card.Text>
+            Email Address : 1@1 <br></br>
+            Password : 1
+          </Card.Text>
+          <Card.Subtitle className="mb-2 text-muted">
+            Or press AUTO FILL button to fill Email and Password automatically.
+          </Card.Subtitle>
+          <Button onClick={insertDummyInputAdmin}>Auto fill</Button>
+        </Card.Body>
+        <Card.Body>
+          <Card.Subtitle className="mb-2 text-muted">
+            As User
+          </Card.Subtitle>
+          <Card.Text>
+            Email Address : 2@2 <br></br>
+            Password : 2
+          </Card.Text>
+          <Card.Subtitle className="mb-2 text-muted">
+            Or press AUTO FILL button to fill Email and Password automatically.
+          </Card.Subtitle>
+          <Button onClick={insertDummyInputUser}>Auto fill</Button>
+        </Card.Body>
+      </Card>
     </div>
   );
 };
